@@ -7,7 +7,7 @@ jenkins:
   - wlpcluster01:wlpcluster01
   - chefserver:chefserver
   volumes:
-  - ~/rancher/server/jenkins_home:/var/jenkins_home
+  - /home/ibmadmin/rancher/server/jenkins_home:/var/jenkins_home
 wlpcluster01:
   environment:
     LICENSE: accept
@@ -27,7 +27,7 @@ wlpcluster01:
   - wlpcluster03:wlpcluster03
   - chefserver:chefserver
   volumes:
-  - ~/rancher/server/chefserver/shared_data/etc_client:/etc/chef
+  - /home/ibmadmin/rancher/server/chefserver/shared_data/etc_client:/etc/chef
 chefserver:
   ports:
   - 443:443/tcp
@@ -39,13 +39,13 @@ chefserver:
   image: chefserver12_chefmanage_sshd:ubuntu
   privileged: true
   volumes:
-  - ~/rancher/server/chefserver/etc_opscode:/etc/opscode
-  - ~/rancher/server/chefserver/etc_chef_manage:/etc/chef-manage
-  - ~/rancher/server/chefserver/var_log_opscode:/var/log/opscode
-  - ~/rancher/server/chefserver/var_log_chef_manage:/var/log/chef-manage
-  - ~/rancher/server/chefserver/var_opt_opscode:/var/opt/opscode
-  - ~/rancher/server/chefserver/var_opt_chef_manage:/var/opt/chef-manage
-  - ~/rancher/server/chefserver/shared_data:/data
+  - /home/ibmadmin/rancher/server/chefserver/etc_opscode:/etc/opscode
+  - /home/ibmadmin/rancher/server/chefserver/etc_chef_manage:/etc/chef-manage
+  - /home/ibmadmin/rancher/server/chefserver/var_log_opscode:/var/log/opscode
+  - /home/ibmadmin/rancher/server/chefserver/var_log_chef_manage:/var/log/chef-manage
+  - /home/ibmadmin/rancher/server/chefserver/var_opt_opscode:/var/opt/opscode
+  - /home/ibmadmin/rancher/server/chefserver/var_opt_chef_manage:/var/opt/chef-manage
+  - /home/ibmadmin/rancher/server/chefserver/shared_data:/data
 wlpcluster02:
   environment:
     LICENSE: accept
