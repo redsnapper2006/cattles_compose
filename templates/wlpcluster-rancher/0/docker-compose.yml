@@ -7,7 +7,7 @@ jenkins:
   - wlpcluster01:wlpcluster01
   - chefserver:chefserver
   volumes:
-  - /home/devops/rancher/server/jenkins_home:/var/jenkins_home
+  - ~/rancher/server/jenkins_home:/var/jenkins_home
 wlpcluster01:
   environment:
     LICENSE: accept
@@ -19,7 +19,7 @@ wlpcluster01:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;su -p wasadmin -c "bash /wlpconfig/controller.sh";sleep 240;su -p wasadmin -c "bash /wlpconfig/failover.sh"; sleep 10;su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;su -p wasadmin -c "bash /wlpconfig/controller.sh";sleep 300;su -p wasadmin -c "bash /wlpconfig/failover.sh"; sleep 10;su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: wlpcluster01
   image: wlpserver_chefclient:centos7
   links:
@@ -27,7 +27,7 @@ wlpcluster01:
   - wlpcluster03:wlpcluster03
   - chefserver:chefserver
   volumes:
-  - /home/devops/rancher/server/chefserver/shared_data/etc_client:/etc/chef
+  - ~/rancher/server/chefserver/shared_data/etc_client:/etc/chef
 chefserver:
   ports:
   - 443:443/tcp
@@ -39,13 +39,13 @@ chefserver:
   image: chefserver12_chefmanage_sshd:ubuntu
   privileged: true
   volumes:
-  - /home/devops/rancher/server/chefserver/etc_opscode:/etc/opscode
-  - /home/devops/rancher/server/chefserver/etc_chef_manage:/etc/chef-manage
-  - /home/devops/rancher/server/chefserver/var_log_opscode:/var/log/opscode
-  - /home/devops/rancher/server/chefserver/var_log_chef_manage:/var/log/chef-manage
-  - /home/devops/rancher/server/chefserver/var_opt_opscode:/var/opt/opscode
-  - /home/devops/rancher/server/chefserver/var_opt_chef_manage:/var/opt/chef-manage
-  - /home/devops/rancher/server/chefserver/shared_data:/data
+  - ~/rancher/server/chefserver/etc_opscode:/etc/opscode
+  - ~/rancher/server/chefserver/etc_chef_manage:/etc/chef-manage
+  - ~/rancher/server/chefserver/var_log_opscode:/var/log/opscode
+  - ~/rancher/server/chefserver/var_log_chef_manage:/var/log/chef-manage
+  - ~/rancher/server/chefserver/var_opt_opscode:/var/opt/opscode
+  - ~/rancher/server/chefserver/var_opt_chef_manage:/var/opt/chef-manage
+  - ~/rancher/server/chefserver/shared_data:/data
 wlpcluster02:
   environment:
     LICENSE: accept
@@ -57,7 +57,7 @@ wlpcluster02:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;sleep 180;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;sleep 150;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: wlpcluster02
   image: wlpserver_chefclient:centos7
 wlpcluster03:
@@ -71,6 +71,6 @@ wlpcluster03:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;sleep 210;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;sleep 180;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: wlpcluster03
   image: wlpserver_chefclient:centos7
