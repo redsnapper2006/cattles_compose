@@ -57,7 +57,7 @@ wlpcluster02:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;sleep 150;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;sleep 180;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: wlpcluster02
   image: wlpserver_chefclient:centos7
 wlpcluster03:
@@ -71,6 +71,6 @@ wlpcluster03:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;sleep 180;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;sleep 210;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: wlpcluster03
   image: wlpserver_chefclient:centos7
