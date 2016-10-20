@@ -19,7 +19,7 @@ contrailwlpcluster01:
   entrypoint:
   - bash
   - -c
-  - /usr/sbin/sshd;su -p wasadmin -c "bash /wlpconfig/controller.sh";sleep 60;su -p wasadmin -c "bash /wlpconfig/failover.sh"; sleep 10;su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
+  - /usr/sbin/sshd;su -p wasadmin -c "bash /wlpconfig/controller.sh";sleep 110;su -p wasadmin -c "bash /wlpconfig/failover.sh"; sleep 10;su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"
   hostname: contrailwlpcluster01
   image: wlpserver_chefclient:centos7
   links:
