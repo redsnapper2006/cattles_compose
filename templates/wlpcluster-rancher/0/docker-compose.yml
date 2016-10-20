@@ -8,7 +8,7 @@ contrailjenkins:
   - contrailchefserver:contrailchefserver
   volumes:
   - /home/ibmadmin/rancher/server/jenkins_home:/var/jenkins_home
-  net: bridge
+  net: "bridge"
 contrailwlpcluster01:
   environment:
     LICENSE: accept
@@ -26,7 +26,7 @@ contrailwlpcluster01:
   - contrailchefserver:contrailchefserver
   volumes:
   - /home/ibmadmin/rancher/server/chefserver/shared_data/etc_client:/etc/chef
-  net: bridge
+  net: "bridge"
 contrailchefserver:
   ports:
   - 443:443/tcp
@@ -45,7 +45,7 @@ contrailchefserver:
   - /home/ibmadmin/rancher/server/chefserver/var_opt_opscode:/var/opt/opscode
   - /home/ibmadmin/rancher/server/chefserver/var_opt_chef_manage:/var/opt/chef-manage
   - /home/ibmadmin/rancher/server/chefserver/shared_data:/data
-  net: bridge
+  net: "bridge"
 contrailwlpcluster02:
   environment:
     LICENSE: accept
@@ -57,7 +57,7 @@ contrailwlpcluster02:
   entrypoint: bash -c '/usr/sbin/sshd;sleep 20;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"'
   hostname: contrailwlpcluster02
   image: wlpserver_chefclient:centos7
-  net: bridge
+  net: "bridge"
 contrailwlpcluster03:
   environment:
     LICENSE: accept
@@ -69,4 +69,4 @@ contrailwlpcluster03:
   entrypoint: bash -c '/usr/sbin/sshd;sleep 40;su -p wasadmin -c "bash /wlpconfig/controller.sh";su -p wasadmin -c "bash /wlpconfig/wlpcluster_bootstrap.sh"'
   hostname: contrailwlpcluster03
   image: wlpserver_chefclient:centos7
-  net: bridge
+  net: "bridge"
