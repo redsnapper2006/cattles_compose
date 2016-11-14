@@ -1,0 +1,81 @@
+version : '2'
+
+services :
+  ucdserver :
+    image : ucdserver:latest
+    container_name : ucdserver
+    hostname : ucdserver
+    ports :
+      - "28080:8080"
+    expose:
+      - 7918
+    volumes :
+      - /home/ibmadmin/docker/dockermount/ucdserver:/ucddata
+  chefserver :
+    image : chefserver12_sshd_ucdagent:ubuntu
+    container_name : chefserver
+    hostname : chefserver
+    privileged : true
+    ports :
+      - "443:443"
+    volumes :
+      - /home/ibmadmin/docker/dockermount/chefserver/etc_opscode:/etc/opscode
+      - /home/ibmadmin/docker/dockermount/chefserver/var_log_opscode:/var/log/opscode
+      - /home/ibmadmin/docker/dockermount/chefserver/var_opt_opscode:/var/opt/opscode
+      - /home/ibmadmin/docker/dockermount/chefserver/shared_data:/data
+    environment:
+      IBM_ACCEPTED_LICENSES : ibm-ucd-agent
+      IBM_UCD_REMOTE_HOST :
+      IBM_UCD_REMOTE_PORT :
+      IBM_UCD_AGENT_NAME : chefserver
+      IBM_UCD_AGENT_ID : chefserver
+  uisrv1 :
+    image : uisrv1:centos
+    container_name : uisrv1
+    hostname : uisrv1
+    links:
+      - uisrv2
+    depends_on :
+      - uisrv2
+    ports:
+      - "1080:80"
+      - "10443:443"
+    volumes :
+      - /home/ibmadmin/docker/dockermount/ui/uisrv1/etc_chef:/etc/chef
+    entrypoint : bash -c 'sleep 60; /opt/IBM/wshnd/AppServer/profiles/uisrv1-node/bin/startNode.sh; /usr/sbin/sshd; tail -f /dev/null'
+  uisrv2 :
+    image : uisrv2:centos
+    container_name : uisrv2
+    hostname : uisrv2
+    ports:
+      - "9043:9043"
+      - "2080:80"
+      - "20443:443"
+    volumes :
+      - /home/ibmadmin/docker/dockermount/ui/uisrv2/etc_chef:/etc/chef
+    entrypoint : bash -c '/opt/IBM/wshnd/AppServer/profiles/dmgr/bin/startManager.sh; /opt/IBM/wshnd/AppServer/profiles/uisrv2-node/bin/startNode.sh; /usr/sbin/sshd; tail -f /dev/null'
+  db2 :
+    image : ibm/db2inst:10.5.0.7
+    container_name : db2
+    hostname : db2
+    privileged : true
+    user : db2inst
+    ports :
+      - "50000:50000"
+  jenkins :
+    image : jenkins:latest
+    container_name : jenkins
+    hostname : jenkins
+    ports :
+      - "38080:8080"
+    volumes :
+      - /home/ibmadmin/docker/dockermount/jenkins/jenkins_home:/var/jenkins_home
+    user : jenkins
+  ldap :
+    image : h3nrik/apacheds
+    container_name : ldap
+    hostname : ldap
+    ports :
+      - "389:10389"
+    volumes :
+      - /home/ibmadmin/docker/dockermount/ldap/var_lib_apacheds:/var/lib/apacheds-2.0.0-M20

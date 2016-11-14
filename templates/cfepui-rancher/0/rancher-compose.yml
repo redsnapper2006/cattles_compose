@@ -1,0 +1,19 @@
+ucdserver:
+  scale: 1
+ldap:
+  scale: 1
+jenkins:
+  scale: 1
+chefserver:
+  scale: 1
+uisrv2:
+  scale: 1
+uisrv1:
+  scale: 1
+db2:
+  scale: 1
+.catalog:
+  name: cfepui
+  version: 0.0.1
+  description: cfepui
+  questions:
