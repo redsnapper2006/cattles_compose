@@ -33,7 +33,7 @@ contrailchefserver:
   - -c
   - /usr/sbin/sshd & /opt/opscode/embedded/bin/runsvdir-start & /opt/chef-manage/embedded/bin/runsvdir-start
   hostname: contrailchefserver
-  image: chefserver12_chefmanage_sshd:ubuntu
+  image: chefserver12_chefmanage_chefsync_sshd:ubuntu
   privileged: true
   volumes:
   - /home/ibmadmin/rancher/server/chefserver/etc_opscode:/etc/opscode
