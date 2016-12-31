@@ -38,17 +38,9 @@ services :
     # user : db2inst
     ports :
       - "50000:50000"
-    volumes_from :
-      - db2data
-    entrypoint : bash -c "docker-entrypoint.sh ; sleep 40; su - db2inst -c 'source /home/db2inst/sqllib/db2profile; db2 catalog database cfepdb on /data; db2 catalog database cloudex on /data'; tail -f /dev/null"
-  db2data :
-    image : busybox:latest
-    container_name : db2data
-    hostname : db2data
-    networks:
-      - demo
     volumes :
       - /home/ibmadmin/docker/dockermount/db2:/data
+    entrypoint : bash -c "docker-entrypoint.sh ; sleep 40; su - db2inst -c 'source /home/db2inst/sqllib/db2profile; db2 catalog database cfepdb on /data; db2 catalog database cloudex on /data'; tail -f /dev/null"
   ldap :
     image : h3nrik/apacheds
     container_name : ldap
