@@ -1,10 +1,4 @@
-ucdserver:
-  scale: 1
 ldap:
-  scale: 1
-jenkins:
-  scale: 1
-chefserver:
   scale: 1
 uisrv2:
   scale: 1
